@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/recet-styles.css" />
+    <link rel="stylesheet" href="/stylesheets/form.css" />
+    <script src="/javascripts/RequestManager.js"></script>
+    <script>
+      function onFileInput(event) {
+        RequestManager.handleFileSelect(event, "#imgPreview");
+      }
+    </script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-msg">
+        <% if (errors?.length > 0) { %>
+        <ul>
+          <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+      <!-- enctype="multipart/form-data" -->
+      <form
+        action="/products/register<%= data?.id ? '/' + data.id : '' %>"
+        method="post"
+        class="form"
+        enctype="multipart/form-data"
+      >
+        <input
+          type="text"
+          name="title"
+          placeholder="title"
+          value="<%= data ? data.title : '' %>"
+        />
+        <input
+          type="number"
+          name="price"
+          placeholder="price"
+          value="<%= data ? data.price : '' %>"
+        />
+        <input
+          type="number"
+          name="quantity"
+          placeholder="quantity"
+          value="<%= data ? data.quantity : '' %>"
+        />
+        <input type="file" accept="image/" name="image"
+        onchange="onFileInput(event)" <%= data ? '' : 'required' %> />
+        <div>
+          <img
+            id="imgPreview"
+            src="<%= data && data.image ? 'data:image;base64,'+data.image : '/default-image.jpg'%>"
+            class="image"
+          />
+        </div>
+        <button type="submit" class="submit-button">
+          <%= data ? 'Save' : 'Create' %>
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

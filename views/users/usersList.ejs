@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script src="/javascripts/RequestManager.js"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/recet-styles.css" />
+    <link rel="stylesheet" href="/stylesheets/header.css" />
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <%- include('../sections/header', {title: 'Users list'})%>
+      <main class="container">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(user=>{%>
+            <tr>
+              <td><%=user.name%></td>
+              <td><%=user.email%></td>
+              <td><%=user.type?.title || user.type%></td>
+              <td>
+                <!-- <a href="/users/register/<%= user._id %>" class="edit-button"
+                  >Edit</a
+                > -->
+                <button
+                  onclick="RequestManager.deleteRequest('/users', '<%= user._id %>')"
+                  class="delete-button"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+
+        <a href="users/register" class="add-button">Add user</a>
+      </main>
+
+      <%-include('../sections/footer', {title: 'footer'})%>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register page</title>
+    <link rel="stylesheet" href="/stylesheets/recet-styles.css" />
+    <link rel="stylesheet" href="/stylesheets/form.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-msg">
+        <% if (errors?.length > 0) { %>
+        <ul class="error-msg">
+          <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+        <% } %>
+      </div>
+      <form
+        action="/users/register<%= data?.id ? '/' + data.id : '' %>"
+        method="post"
+        class="form"
+      >
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value="<%= data ? data.name : '' %>"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value="<%= data ? data.email : '' %>"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value="<%= data ? data.password : '' %>"
+        />
+        <select name="type">
+          <% types.forEach(type =>{%>
+          <option value="<%=type._id%>"><%=type.title%></option>
+          <%})%>
+        </select>
+
+        <button type="submit" class="submit-button">Register</button>
+      </form>
+    </div>
+  </body>
+</html>

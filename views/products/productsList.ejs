@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="/stylesheets/recet-styles.css" />
+    <link rel="stylesheet" href="/stylesheets/header.css" />
+    <link rel="stylesheet" href="/stylesheets/footer.css" />
+    <script src="/javascripts/RequestManager.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <%- include('../sections/header.ejs', {title: 'User form'})%>
+      <main>
+        <div class="container">
+          <div class="product">
+            <h1 class="title">Products List</h1>
+
+            <div class="product-card">
+              <%products.forEach(product=>{%>
+
+              
+                <div class="item">
+                  <a href="/products/<%= product.id %>"></a>
+                  <div class="content">
+                    <div class="product-details">
+                      <div class="product-image">
+                        <img src="data:image;base64,<%= product.image %>" />
+                      </div>
+                      <h2 class="product-title">
+                        Title: <%= product.title %>
+                      </h2>
+                      <div class="product-quantity">
+                        Quantity: <%= product.quantity %>
+                      </div>
+                      <div class="product-price">
+                        Price: $ <%= product.price %>
+                      </div>
+                    </div>
+                    <%if(user){%>
+                    <div class="product-actions">
+                      <a
+                        href="/products/register/<%= product.id %>"
+                        class="edit-button"
+                        >Edit</a
+                      >
+                      <button
+                        onclick="RequestManager.deleteRequest('/products', '<%= product.id %>')"
+                        class="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                    <%}%>
+                  </div>
+               </a>
+                </div>
+             
+              <%})%>
+            </div>
+          </div>
+          <%if(user){%>
+          <div>
+            <a href="/products/register" class="add-button">Add product</a>
+          </div>
+          <%}%>
+        </div>
+      </main>
+      <%-include('../sections/footer', {title: 'footer'})%>
+    </div>
+  </body>
+</html>
