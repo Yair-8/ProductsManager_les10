@@ -18,11 +18,13 @@ header {
 
 .nav-list li a {
   color: black;
+  font-size: 1.3em;
+
   transition: color 0.3s ease;
 }
 
 .nav-list li a:hover {
-  color: rgb(55, 53, 53);
+  color: white;
 }
 
 .site-title {
